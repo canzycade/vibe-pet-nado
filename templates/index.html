@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Pet Tornado</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <main>
+    <h1>🌪️ Meet <span id="tornado-name">Your Pet</span></h1>
+    <form method="POST" action="/submit">
+      <input id="name-input" name="name" type="text" placeholder="Name your tornado..." required />
+      <button type="submit">Submit</button>
+    </form>
+    <div class="tornado" id="tornado">
+      {% for i in range(15) %}
+        <div class="swirl" style="--i: {{ i }};"></div>
+      {% endfor %}
+      <div class="face" id="face">
+        <div class="eye left-eye"></div>
+        <div class="eye right-eye"></div>
+        <div class="smile" id="smile"></div>
+      </div>
+    </div>
+    <section>
+      <h3>Past Names</h3>
+      <ul>
+        {% for name in names %}
+          <li>{{ name }}</li>
+        {% endfor %}
+      </ul>
+    </section>
+  </main>
+
+  <script>
+    const tornado = document.getElementById('tornado');
+    const smile = document.getElementById('smile');
+
+    tornado.addEventListener('click', () => {
+      tornado.classList.add('petting');
+      smile.classList.add('happy');
+      setTimeout(() => {
+        tornado.classList.remove('petting');
+        smile.classList.remove('happy');
+      }, 1000);
+    });
+
+    const input = document.getElementById('name-input');
+    const nameDisplay = document.getElementById('tornado-name');
+
+    input.addEventListener('input', () => {
+      nameDisplay.textContent = input.value || "Your Pet";
+    });
+  </script>
+</body>
+</html>
